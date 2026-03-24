@@ -3,12 +3,14 @@ package application;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
 import entities.Event;
-import entities.Exhibition;
 import entities.EventSchedule;
+import entities.Exhibition;
 import entities.Show;
 import entities.Theater;
 import entities.enums.EventType;
@@ -58,30 +60,73 @@ public class Program {
 	// Main class
 	public static void main(String[] args) {
 
+		// declaration
 		Locale.setDefault(Locale.US);
 		Scanner sc = new Scanner(System.in);
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 		EventSchedule programation = new EventSchedule();
-
-		System.out.print("How many events? ");
-		int eventNumber = sc.nextInt();
-
+		
+		//asks how many events 
+		int eventNumber = 0;
+		while (true) {
+			try {
+				System.out.print("How many events? ");
+				eventNumber = sc.nextInt();
+				break;
+			} 
+			catch (InputMismatchException e) {
+				System.out.println("Error: Invalid input! Try again\n");
+				sc.nextLine();
+			}
+		}
+		
 		// Input of data
 		for (int i = 1; i <= eventNumber; i++) {
-			System.out.print("Event type? [THEATER, SHOW, EXHIBITION]: ");
-			EventType eventType = EventType.valueOf(sc.next().toUpperCase());
-			sc.nextLine();
+			
+			// Declara as variaveis fora dos try 
+			EventType eventType = null;
+			LocalDate date = null;
+			Integer numberOfTickets = null;
+					
+			while (true) {
+				try {
+					System.out.print("Event type? [THEATER, SHOW, EXHIBITION]: ");
+					eventType = EventType.valueOf(sc.next().toUpperCase());
+					sc.nextLine();
+					break;
+				}
+				catch(IllegalArgumentException e) {
+					System.out.println("Error: Invalid event!\n");
+				}
+			}
 
 			System.out.print("Event name: ");
 			String eventName = sc.nextLine();
-
-			System.out.print("Event date (DD/MM/YYYY):");
-			LocalDate date = LocalDate.parse(sc.next(), dateFormatter);
-
-			System.out.print("Number of Tickets: ");
-			Integer numberOfTickets = sc.nextInt();
-
+			
+			while (true) {
+				try {
+					System.out.print("Event date (DD/MM/YYYY):");
+					date = LocalDate.parse(sc.next(), dateFormatter);
+					break;
+				} 
+				catch (DateTimeParseException e) {
+					System.out.println("Error: Invalid date format! Try again\n");
+				}
+			}
+			
+			while (true) {
+				try {
+					System.out.print("Number of Tickets: ");
+					numberOfTickets = sc.nextInt();
+					break;
+				} 
+				catch (InputMismatchException e) {
+					System.out.println("Error: Invalid input! Try again\n");
+					sc.nextLine();
+				}
+			}
+			
 			System.out.println();
 
 			/*
@@ -102,7 +147,7 @@ public class Program {
 			System.out.println();
 		}
 		System.out.println(programation);
-
+		sc.close();
 	}
 	
 	public static void createTheater(EventType eventType, String eventName, LocalDate date, Scanner sc,
@@ -142,6 +187,7 @@ public class Program {
 			}
 			programation.addEvent(theater);
 		}
+		sc.close();
 	}
 	
 	public static void createExhibition(EventType eventType, String eventName, LocalDate date, Scanner sc,
@@ -180,6 +226,7 @@ public class Program {
 			}
 			programation.addEvent(exhibition);
 		}
+		sc.close();
 	}
 	
 	public static void createShow(EventType eventType, String eventName, LocalDate date, Scanner sc,
@@ -214,6 +261,7 @@ public class Program {
 			}
 			programation.addEvent(show);
 		}
+		sc.close();
 	}
 }
 
