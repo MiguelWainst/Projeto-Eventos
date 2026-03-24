@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Programation {
+public class EventSchedule {
 
 	private List<Event> events = new ArrayList<>();
 
@@ -17,6 +17,7 @@ public class Programation {
 	public void addEvent(Event event) {
 		events.add(event);
 	}
+	
 	public Double getTotalPrice() {
 	    Double sum = 0.0;
 	    for (Event x : events) {

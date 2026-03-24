@@ -8,9 +8,27 @@ import entities.enums.TicketType;
 
 public abstract class Event {
 
-	private String name;
-	private LocalDate date;
-	protected Integer numberOfTickets;
+	/*
+	 * Classe base que representa um evento genérico.
+	 *
+	 * Responsável por:
+	 * - armazenar dados comuns (nome do evento, data do evento, 
+	 *   quantidade de ingressos pro evento)
+	 * - manter a lista de tickets do evento
+	 * - definir o contrato de cálculo de preço (price)
+	 * - definir a criação de tickets (createAndAddTicket)
+	 * - fornecer a estrutura de exibição (toString)
+	 *
+	 * Não sabe regras específicas de preço, pois isso é responsabilidade
+	 * das subclasses (Show, Theater, Exhibition).
+	 *
+	 * Aplica polimorfismo: cada tipo de evento implementa sua própria lógica.
+	 */
+	
+	private String     name;
+	private LocalDate  date;
+	protected Integer  numberOfTickets;
+	
 	private List<Ticket> tickets = new ArrayList<>();
 
 	// CONSTRUCTOR
@@ -18,7 +36,6 @@ public abstract class Event {
 	}
 
 	public Event(String name, LocalDate date, Integer numberOfTickets) {
-		super();
 		this.name = name;
 		this.date = date;
 		this.numberOfTickets = numberOfTickets;
@@ -66,22 +83,26 @@ public abstract class Event {
 		return sum;
 	}
 
+	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		for (Ticket x : tickets) {
-			if (x.getPrice() < 50) {
-				sb.append(x.getExhibitionType() + " - " + x.getTicketType() + " - " + x.getPrice() + "\n");
-			} else if (x.getPrice() <= 80 && x.getPrice() >= 55) {
-				sb.append(x.getTheaterType() + " - " + x.getTicketType() + " - " + x.getPrice() + "\n");
-			} else if (x.getPrice() >= 100) {
-				sb.append(" - " + x.getTicketType() + " - " + x.getPrice() + "\n");
-			}
-		}
-		return sb.toString();
+	    StringBuilder sb = new StringBuilder();
+
+	    for (Ticket t : tickets) {
+	        sb.append(getEventLabel())
+	          .append(" - ")
+	          .append(t.getTicketType())
+	          .append(" - ")
+	          .append(t.getPrice())
+	          .append("\n");
+	    }
+
+	    return sb.toString();
 	}
 
 	public abstract Double price(TicketType ticketType); // depends on the event type
 
 	public abstract void createAndAddTicket(TicketType ticketType);
+	
+	public abstract String getEventLabel();
 
 }
