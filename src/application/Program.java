@@ -1,6 +1,9 @@
 package application;
 
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -146,7 +149,19 @@ public class Program {
 			
 			System.out.println();
 		}
+		sc.close();
 		System.out.println(programation);
+		
+		String path = "c:\\temp\\Recibo.txt"; 
+		
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
+			bw.write("RECIBO:\n\n");
+			bw.write(programation.toString());
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		sc.close();
 	}
 	
@@ -187,7 +202,6 @@ public class Program {
 			}
 			programation.addEvent(theater);
 		}
-		sc.close();
 	}
 	
 	public static void createExhibition(EventType eventType, String eventName, LocalDate date, Scanner sc,
@@ -226,7 +240,6 @@ public class Program {
 			}
 			programation.addEvent(exhibition);
 		}
-		sc.close();
 	}
 	
 	public static void createShow(EventType eventType, String eventName, LocalDate date, Scanner sc,
@@ -261,7 +274,6 @@ public class Program {
 			}
 			programation.addEvent(show);
 		}
-		sc.close();
 	}
 }
 
