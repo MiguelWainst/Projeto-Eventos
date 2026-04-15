@@ -1,16 +1,34 @@
-PROJETO PESSOAL PARA MOSTRAR E ATUALIZAR MEU CONHECIMENTO APRENDIDO DURANTE MEUS ESTUDOS
-INDEPENDETES DE JAVA
+# Projeto-Eventos
 
-Nesse projeto a ideia inicial era um exercício comum mas tive a ideia de torna-lo um projeto
-em que vou atualizando a cada tópico novo aprendido em Java. Desse jeito posso ver meu
-progresso em um único lugar.
-Também serve para mostrar a outro a minha capacidade real de programar. Dedicarei muito
-dos meus esfoços e tempo nesse projeto, não para vende-lo ou torna-lo operante a demias, mas
-para demonstrar minha capacidade total
+Sistema de compra de ingressos desenvolvido em Java puro.
 
-Esse projeto é um "APP" de compra de ingresso para enventos, efetuando a compra e pagamento
-e mostrando oque foi comprado por cada pessoa.
+## Sobre o projeto
 
-A versão 1.0 não representa meu conhecimento atual 11/03/2006, estou trabalhando na versão 2.0 
-mas antes decidi commitar a versão 1.0 mesmo ja tendo mais conhecimento e podendo fazer uma
-versão 1.0 mais forte.
+Este projeto simula um sistema de venda de ingressos para eventos.  
+O usuário pode visualizar os eventos disponíveis, escolher o ingresso, informar os dados do comprador e finalizar a compra com o processamento simples de pagamento.
+
+O objetivo principal é praticar programação em Java e acompanhar minha evolução. Conforme aprendo novos conceitos, volto ao projeto para implementar melhorias.
+
+## Funcionalidades (Versão 1.0)
+
+- Menu principal no console
+- Listagem de eventos disponíveis
+- Seleção e compra de ingressos
+- Cadastro dos dados do comprador
+- Processamento básico de pagamento
+- Geração de recibo em arquivo .txt
+- Visualização do histórico de compras
+
+## Tecnologias utilizadas
+
+- Java (JDK 8 ou superior)
+- Orientação a Objetos
+- Collections (ArrayList)
+- Tratamento de exceções
+- Leitura e escrita de arquivos
+
+## Como executar
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/MiguelWainst/Projeto-Eventos.git
