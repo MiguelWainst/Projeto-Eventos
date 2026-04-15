@@ -1,9 +1,9 @@
-package entities;
+package model.entities;
 
 import java.time.LocalDate;
 
-import entities.enums.TheaterType;
-import entities.enums.TicketType;
+import model.entities.enums.TheaterType;
+import model.entities.enums.TicketType;
 
 public class Theater extends Event {
 

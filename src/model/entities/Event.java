@@ -1,10 +1,10 @@
-package entities;
+package model.entities;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.enums.TicketType;
+import model.entities.enums.TicketType;
 
 public abstract class Event {
 

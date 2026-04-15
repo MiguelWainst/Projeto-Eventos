@@ -1,8 +1,8 @@
-package entities;
+package model.entities;
 
 import java.time.LocalDate;
 
-import entities.enums.TicketType;
+import model.entities.enums.TicketType;
 
 public class Show extends Event {
 

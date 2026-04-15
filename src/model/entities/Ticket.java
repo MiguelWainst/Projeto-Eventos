@@ -1,6 +1,6 @@
-package entities;
+package model.entities;
 
-import entities.enums.TicketType;
+import model.entities.enums.TicketType;
 
 public class Ticket {
 	
