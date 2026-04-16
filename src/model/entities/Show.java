@@ -3,6 +3,7 @@ package model.entities;
 import java.time.LocalDate;
 
 import model.entities.enums.TicketType;
+import model.services.PriceCalculateService;
 
 public class Show extends Event {
 
@@ -10,9 +11,8 @@ public class Show extends Event {
 	 * Representa um evento do tipo Show.
 	 *
 	 * Responsável por:
-	 * - aplicar as regras de preço específicas de show
-	 * - criar e adicionar tickets ao evento
-	 * - informar seu tipo para exibição (getEventLabel)
+	 * - criar e adiciona tickets ao evento
+	 * - informar o seu tipo para exibição (getEventLabel)
 	 */
 	
 	private Integer durationHours;
@@ -29,40 +29,28 @@ public class Show extends Event {
 	public Integer getDurationHours() {
 		return durationHours;
 	}
-
 	public void setDurationHours(Integer durationHours) {
 		this.durationHours = durationHours;
 	}
 
 	// Methods
-	@Override
-	public Double price(TicketType ticketType) { // Ticket type = Normal or Student type
-		/* 
-		 * The price depends on how many tickets will be bought.
-		 * 1 tickets = $150 per hour
-		 * +1 ticket = $120 per hour each
-		 * 
-		 * But if its a student type it will cost only 120$
-		 * independent if de show is longe than 1 hour.
-		 */
-		double price = 0;
-		if (ticketType == TicketType.NORMAL) { // Rule if ticket is normal type.
-			price = numberOfTickets > 1 ? 120 * durationHours : 150 * durationHours; 
-		} else if(ticketType == TicketType.STUDENT) price = 100; // Rule if its student type.
-		return price;
-	}
 
-	// Cria um objeto Ticket e adiciona ele na lista do Event.
+	/*
+	esse method vai usar a classe serviço do PriceCalculateService,
+	criar um Ticket e adicionar o ticket na lista de events através
+	de um method herdado da classe event.
+	 */
 	@Override
 	public void createAndAddTicket(TicketType ticketType) {
-		double price = price(ticketType);
+		PriceCalculateService priceCalculateService = new PriceCalculateService();
+		double price = priceCalculateService.calculateShowPrice(ticketType, durationHours, numberOfTickets);
 		Ticket ticket = new Ticket(ticketType, price);
 		super.addTicket(ticket);
 	}
-	
+
+	// Method que informa o seu tipo para o event printar.
 	@Override
 	public String getEventLabel() {
 	    return "SHOW";
 	}
-
 }

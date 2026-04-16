@@ -1,6 +1,10 @@
 package application;
 
 
+import model.entities.EventSchedule;
+import model.entities.enums.EventType;
+import model.services.EventService;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,10 +14,6 @@ import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
-
-import model.entities.EventSchedule;
-import model.entities.enums.EventType;
-import model.services.EventService;
 
 public class Program {
 	
@@ -90,7 +90,7 @@ public class Program {
 			System.out.println();
 
 			/*
-			 * Call the function responsable for creating a ticket.
+			 * Call the function responsible for creating a ticket.
 			 * 
 			 * Se o "eventType" que o usuário digitou for igual o
 			 * eventType que a função demanda dentro do seu "if"

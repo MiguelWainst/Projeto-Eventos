@@ -1,10 +1,10 @@
 package model.entities;
 
+import model.entities.enums.TicketType;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import model.entities.enums.TicketType;
 
 public abstract class Event {
 
@@ -99,7 +99,7 @@ public abstract class Event {
 	    return sb.toString();
 	}
 
-	public abstract Double price(TicketType ticketType); // depends on the event type
+	//public abstract Double price(TicketType ticketType); // depends on the event type
 
 	public abstract void createAndAddTicket(TicketType ticketType);
 	
