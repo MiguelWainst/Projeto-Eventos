@@ -3,27 +3,27 @@ package model.services;
 import model.entities.enums.ExhibitionType;
 import model.entities.enums.TheaterType;
 import model.entities.enums.TicketType;
-import model.interfaces.InterfacePriceService;
+import model.interfaces.IPriceService;
 
-public class PriceCalculateService implements InterfacePriceService {
+public class PriceCalculateService implements IPriceService {
     /*
     Classe responsável por fazer o cálculo do
     preço dos tickets e aplicar as regras de negócio.
     */
 
     // Preços dos tipos de teatros "theaterType":
-    private static final int NORMAL_CLASSIC_THEATER_PRICE =    80; 	// classic theater price without discount.
-    private static final int DISCOUNT_CLASSIC_THEATER_PRICE =  70; 	// classic theater with discount.
-    private static final int NORMAL_MODERN_THEATER_PRICE =     70;	// modern theater without discount.
-    private static final int DISCOUNT_MODERN_THEATER_PRICE =   60;	// modern theater with discount.
-    private static final int STUDENT_PRICE =                   55;	// student pay same price for every theater ticket
+    private static final int NORMAL_CLASSIC_THEATER_PRICE = 80;    // classic theater price without discount.
+    private static final int DISCOUNT_CLASSIC_THEATER_PRICE = 70;    // classic theater with discount.
+    private static final int NORMAL_MODERN_THEATER_PRICE = 70;    // modern theater without discount.
+    private static final int DISCOUNT_MODERN_THEATER_PRICE = 60;    // modern theater with discount.
+    private static final int STUDENT_PRICE = 55;    // student pay same price for every theater ticket
 
     // Preços dos tipos de exibições "exhibitionType":
-    private static final int NORMAL_CHINESE =           50;
-    private static final int NORMAL_CHINESE_DISCOUNT =  40; //"D" means "DISCOUNT" (price with the discount)
-    private static final int NORMAL_MODERN =            30;
-    private static final int NORMAL_MODERN_DISCOUNT =   20;
-    private static final int STUDENT =                   0;
+    private static final int NORMAL_CHINESE = 50;
+    private static final int NORMAL_CHINESE_DISCOUNT = 40; //"D" means "DISCOUNT" (price with the discount)
+    private static final int NORMAL_MODERN = 30;
+    private static final int NORMAL_MODERN_DISCOUNT = 20;
+    private static final int STUDENT = 0;
 
     @Override
     public Double calculateTheaterPrice(TicketType ticketType, TheaterType theaterType, Integer numberOfTickets) {
@@ -69,10 +69,10 @@ public class PriceCalculateService implements InterfacePriceService {
         double price = 0.0;
         if (exhibitionType == ExhibitionType.CHINESE_ART) {
             price = ticketType == TicketType.NORMAL ? (numberOfTickets > 1 ? NORMAL_CHINESE_DISCOUNT : NORMAL_CHINESE)
-                    : (price = STUDENT);
+                    : STUDENT;
         } else if (exhibitionType == ExhibitionType.MODERN_ART) {
             price = ticketType == TicketType.NORMAL ? (numberOfTickets > 1 ? NORMAL_MODERN_DISCOUNT : NORMAL_MODERN)
-                    : (price = STUDENT);
+                    : STUDENT;
         }
         return price;
     }
@@ -90,8 +90,7 @@ public class PriceCalculateService implements InterfacePriceService {
         double price = 0;
         if (ticketType == TicketType.NORMAL) { // Rule if ticket is normal type.
             price = numberOfTickets > 1 ? 120 * durationHours : 150 * durationHours;
-        } else if(ticketType == TicketType.STUDENT) price = 100; // Rule if its student type.
+        } else if (ticketType == TicketType.STUDENT) price = 100; // Rule if its student type.
         return price;
     }
-
 }

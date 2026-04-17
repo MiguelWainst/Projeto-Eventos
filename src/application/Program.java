@@ -3,7 +3,11 @@ package application;
 
 import model.entities.EventSchedule;
 import model.entities.enums.EventType;
+import model.interfaces.IPriceDisplayService;
+import model.interfaces.IPriceService;
 import model.services.EventService;
+import model.services.PriceCalculateService;
+import model.services.PriceDisplayService;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -27,7 +31,7 @@ public class Program {
 
 		EventSchedule programation = new EventSchedule();
 		
-		//asks how many events 
+		// Pergunta quantos eventos serão efetuados
 		int eventNumber = 0;
 		while (true) {
 			try {
@@ -41,7 +45,7 @@ public class Program {
 			}
 		}
 		
-		// Input of data
+		// Entrada de dados pelo usuário
 		for (int i = 1; i <= eventNumber; i++) {
 			
 			// Declara as variaveis fora dos try 
@@ -86,7 +90,8 @@ public class Program {
 					sc.nextLine();
 				}
 			}
-			
+			// fim da entrada de dados
+
 			System.out.println();
 
 			/*
@@ -95,14 +100,11 @@ public class Program {
 			 * Se o "eventType" que o usuário digitou for igual o
 			 * eventType que a função demanda dentro do seu "if"
 			 * então a função vai ser executada
-			 * 
-			 * Se o eventType for diferente ele entra na função, ele
-			 * não passa do if, a função encerra e vai pra proxima
-			 * função até achar a correta que encaixe no if da função.
-			 * 
-			 * É possível observar isso na classe EventService.
 			 */
-			EventService eventService = new EventService();
+
+			IPriceDisplayService priceDisplayService = new PriceDisplayService();
+			IPriceService priceService = new PriceCalculateService();
+			EventService eventService = new EventService(priceDisplayService, priceService);
 			if (eventType == EventType.THEATER) {
 			    eventService.createTheater(eventType, eventName, date, sc, programation, numberOfTickets);
 			}
@@ -127,8 +129,6 @@ public class Program {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		sc.close();
 	}
 	
 }

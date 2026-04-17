@@ -2,7 +2,7 @@ package model.entities;
 
 import model.entities.enums.TheaterType;
 import model.entities.enums.TicketType;
-import model.services.PriceCalculateService;
+import model.interfaces.IPriceService;
 
 import java.time.LocalDate;
 
@@ -15,13 +15,14 @@ public class Theater extends Event {
 	 * - criar e adicionar tickets ao evento
 	 * - informar o seu tipo para exibição (getEventLabel)
 	 */
-
+	private final IPriceService priceService;
 	private TheaterType theaterType;
 
 	// Constructor
-	public Theater(String name, LocalDate date, Integer numberOfTickets, TheaterType theaterType) {
+	public Theater(String name, LocalDate date, Integer numberOfTickets, IPriceService priceService, TheaterType theaterType) {
 		super(name, date, numberOfTickets);
-		this.theaterType = theaterType;
+        this.priceService = priceService;
+        this.theaterType = theaterType;
 	}
 
 	// Getter and Setter
@@ -42,8 +43,7 @@ public class Theater extends Event {
 	 */
 	@Override
 	public void createAndAddTicket(TicketType ticketType) {
-		PriceCalculateService priceCalculateService = new PriceCalculateService();
-		double price = priceCalculateService.calculateTheaterPrice(ticketType, theaterType, numberOfTickets);
+		double price = priceService.calculateTheaterPrice(ticketType, theaterType, numberOfTickets);
 		Ticket ticket = new Ticket(ticketType, price);
 		super.addTicket(ticket);
 	}

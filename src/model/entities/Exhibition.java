@@ -1,10 +1,10 @@
 package model.entities;
 
-import java.time.LocalDate;
-
 import model.entities.enums.ExhibitionType;
 import model.entities.enums.TicketType;
-import model.services.PriceCalculateService;
+import model.interfaces.IPriceService;
+
+import java.time.LocalDate;
 
 public class Exhibition extends Event {
 
@@ -16,15 +16,14 @@ public class Exhibition extends Event {
 	 * - informar o seu tipo para exibição (getEventLabel)
 	 */
 
+	private final IPriceService priceService;
 	private ExhibitionType exhibitionType;
 
 	// Constructors
-	public Exhibition() {
-	}
-
-	public Exhibition(String name, LocalDate date, Integer numberOfTickets, ExhibitionType exhibitionType) {
+	public Exhibition(String name, LocalDate date, Integer numberOfTickets, IPriceService priceService, ExhibitionType exhibitionType) {
 		super(name, date, numberOfTickets);
-		this.exhibitionType = exhibitionType;
+        this.priceService = priceService;
+        this.exhibitionType = exhibitionType;
 	}
 
 	// Getters and Setters
@@ -44,8 +43,7 @@ public class Exhibition extends Event {
 	 */
 	@Override
 	public void createAndAddTicket(TicketType ticketType) {
-		PriceCalculateService priceCalculateService = new PriceCalculateService();
-		double price = priceCalculateService.calculateExhibitionPrice(ticketType, numberOfTickets, exhibitionType);
+		double price = priceService.calculateExhibitionPrice(ticketType, numberOfTickets, exhibitionType);
 		Ticket ticket = new Ticket(ticketType, price);
 		super.addTicket(ticket);
 	}
