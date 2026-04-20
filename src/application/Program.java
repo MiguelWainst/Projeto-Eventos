@@ -71,7 +71,8 @@ public class Program {
 			while (true) {
 				try {
 					System.out.print("Event date (DD/MM/YYYY):");
-					date = LocalDate.parse(sc.next(), dateFormatter);
+					date = LocalDate.parse("10/10/2000", dateFormatter);
+					//date = LocalDate.parse(sc.next(), dateFormatter);
 					break;
 				} 
 				catch (DateTimeParseException e) {

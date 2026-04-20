@@ -9,6 +9,7 @@ import model.interfaces.IPriceDisplayService;
 import model.interfaces.IPriceService;
 
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class EventService {
@@ -30,9 +31,20 @@ public class EventService {
 
 	public void createTheater(EventType eventType, String eventName, LocalDate date, Scanner sc,
 	                          EventSchedule programation, Integer numberOfTickets) {
-		
+
 		System.out.print("CLASSIC or MODERN? "); // pergunta o TheaterType.
-		TheaterType theaterType = TheaterType.valueOf(sc.next().toUpperCase());
+		TheaterType theaterType = null;
+		// While é pra caso o usuário erre o input
+		while (true) {
+			try {
+				theaterType = TheaterType.valueOf(sc.next().toUpperCase());
+				sc.nextLine();
+				break;
+			}
+			catch (IllegalArgumentException e) {
+				System.out.print("This theater type is invalid, try again: ");
+			}
+		}
 
 		// print the prices and discount system
 		System.out.println(priceDisplayService.getTheaterPriceDescription(theaterType));
@@ -41,20 +53,26 @@ public class EventService {
 		Event theater = new Theater(eventName, date, numberOfTickets, priceService, theaterType);
 
 		// create the tickets and add do the list
-		for (int j = 0; j < numberOfTickets; j++) {
-			System.out.print("NORMAL or STUDENT: "); // Após ser mostrado os preços, ele pega a resposta
-			TicketType ticketType = TicketType.valueOf(sc.next().toUpperCase());
-			theater.createAndAddTicket(ticketType);
-		}
+		createTicket(numberOfTickets, sc, theater);
 		programation.addEvent(theater);
-
 	}
 	
 	public void createExhibition(EventType eventType, String eventName, LocalDate date, Scanner sc,
 			EventSchedule programation, Integer numberOfTickets) {
 		
 		System.out.print("CHINESE ART or MODERN ART? "); // Pergunta o ExhibitionType
-		ExhibitionType exhibitionType = ExhibitionType.valueOf(sc.next().toUpperCase());
+		ExhibitionType exhibitionType = null;
+		// While é pra caso o usuário erre o input
+		while (true) {
+			try {
+				exhibitionType = ExhibitionType.valueOf(sc.next().toUpperCase());
+				sc.nextLine();
+				break;
+			}
+			catch (IllegalArgumentException e) {
+				System.out.print("This exhibition type is invalid, try again: ");
+			}
+		}
 
 		// print the prices and discount system
 		System.out.println(priceDisplayService.getExhibitionPriceDescription(exhibitionType));
@@ -63,13 +81,8 @@ public class EventService {
 		Event exhibition = new Exhibition(eventName, date, numberOfTickets, priceService, exhibitionType);
 
 		// create the tickets and add do the list
-		for (int j = 0; j < numberOfTickets; j++) {
-			System.out.print("NORMAL or STUDENT: "); // Após ser mostrado os preços, ele pega a resposta
-			TicketType ticketType = TicketType.valueOf(sc.next().toUpperCase());
-			exhibition.createAndAddTicket(ticketType);
-		}
+		createTicket(numberOfTickets, sc, exhibition);
 		programation.addEvent(exhibition);
-
 	}
 	
 	public void createShow(EventType eventType, String eventName, LocalDate date, Scanner sc,
@@ -77,20 +90,48 @@ public class EventService {
 		
 		// print the prices and discount system
 		System.out.println(priceDisplayService.getShowPriceDescription());
+		System.out.println();
 
 		System.out.print("How many hours does this show have? ");
-		Integer duration = sc.nextInt();
+		Integer duration;
+		// While é pra caso o usuário erre o input
+		while (true) {
+			try {
+				duration = sc.nextInt();
+				break;
+			}
+			catch (InputMismatchException e) {
+				System.out.print("Invalid format, try again: ");
+				sc.nextLine();
+			}
+		}
 
 		// create one list
 		Event show = new Show(eventName, date, numberOfTickets, priceService, duration);
 
 		// create the tickets and add do the list
+		createTicket(numberOfTickets, sc, show);
+		programation.addEvent(show);
+	}
+
+	private void createTicket(Integer numberOfTickets, Scanner sc, Event event) {
 		for (int j = 0; j < numberOfTickets; j++) {
 			System.out.print("NORMAL or STUDENT: "); // Após ser mostrado os preços, ele pega a resposta
-			TicketType ticketType = TicketType.valueOf(sc.next().toUpperCase());
-			show.createAndAddTicket(ticketType);
+			TicketType ticketType;
+			// While é pra caso o usuário erre o input
+			while (true) {
+				try {
+					ticketType = TicketType.valueOf(sc.next().toUpperCase());
+					sc.nextLine();
+					break;
+				}
+				catch (IllegalArgumentException e) {
+					System.out.print("Invalid type of ticket, try again: ");
+				}
+			}
+			event.createAndAddTicket(ticketType);
 		}
-		programation.addEvent(show);
-
 	}
+
 }
+
