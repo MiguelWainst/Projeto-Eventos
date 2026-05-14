@@ -53,4 +53,6 @@ public class Exhibition extends Event {
 	    return exhibitionType.toString();
 	}
 
+
+
 }

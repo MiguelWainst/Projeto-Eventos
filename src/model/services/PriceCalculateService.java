@@ -63,7 +63,7 @@ public class PriceCalculateService implements IPriceService {
          * 1 ticket of modern art = $30
          * +1 ticket = 20$
          *
-         * But if its a student type it will be free access for
+         * But if it is a student type it will be free access for
          * both type of exhibition.
          */
         double price = 0.0;

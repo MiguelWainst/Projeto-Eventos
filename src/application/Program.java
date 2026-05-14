@@ -1,6 +1,4 @@
 package application;
-
-
 import model.entities.EventSchedule;
 import model.entities.enums.EventType;
 import model.interfaces.IPriceDisplayService;
@@ -131,6 +129,8 @@ public class Program {
 			e.printStackTrace();
 		}
 	}
+
+
 	
 }
 

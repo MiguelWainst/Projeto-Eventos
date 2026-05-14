@@ -20,6 +20,8 @@ public class EventService {
 	 * trabalhar em cima delas.
 	 */
 
+	private static EventType eventType; // Variável criada pra capturar o tipo de evento escolhido.
+
 	private final IPriceDisplayService priceDisplayService;
 	private final IPriceService priceService;
 
@@ -29,9 +31,15 @@ public class EventService {
         this.priceService = priceService;
     }
 
+	// Méthod pra poder acessar o EventType .
+	public static String getEventType() {
+		return eventType.toString();
+	}
+
 	public void createTheater(EventType eventType, String eventName, LocalDate date, Scanner sc,
 	                          EventSchedule programation, Integer numberOfTickets) {
 
+		EventService.eventType = eventType; // Passa o tipo de evento para a variável lá em cima
 		System.out.print("CLASSIC or MODERN? "); // pergunta o TheaterType.
 		TheaterType theaterType = null;
 		// While é pra caso o usuário erre o input
@@ -59,7 +67,8 @@ public class EventService {
 	
 	public void createExhibition(EventType eventType, String eventName, LocalDate date, Scanner sc,
 			EventSchedule programation, Integer numberOfTickets) {
-		
+
+		EventService.eventType = eventType; // Passa o tipo de evento para a variável lá em cima
 		System.out.print("CHINESE ART or MODERN ART? "); // Pergunta o ExhibitionType
 		ExhibitionType exhibitionType = null;
 		// While é pra caso o usuário erre o input
@@ -87,7 +96,8 @@ public class EventService {
 	
 	public void createShow(EventType eventType, String eventName, LocalDate date, Scanner sc,
 			EventSchedule programation, Integer numberOfTickets) {
-		
+
+		EventService.eventType = eventType; // Passa o tipo de evento para a variável lá em cima
 		// print the prices and discount system
 		System.out.println(priceDisplayService.getShowPriceDescription());
 		System.out.println();
@@ -132,6 +142,5 @@ public class EventService {
 			event.createAndAddTicket(ticketType);
 		}
 	}
-
 }
 

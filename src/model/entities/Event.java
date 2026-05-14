@@ -1,6 +1,7 @@
 package model.entities;
 
 import model.entities.enums.TicketType;
+import model.services.EventService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public abstract class Event {
 	 * Não sabe regras específicas de preço, pois isso é responsabilidade
 	 * das subclasses (Show, Theater, Exhibition).
 	 *
-	 * Aplica polimorfismo: cada tipo de evento implementa sua própria lógica.
+	 * Aplica polimorfismo: cada tipo de evento implementa a sua própria lógica.
 	 */
 	
 	private String     name;
@@ -86,6 +87,8 @@ public abstract class Event {
 	@Override
 	public String toString() {
 	    StringBuilder sb = new StringBuilder();
+
+		sb.append("Event type: " );
 
 	    for (Ticket t : tickets) {
 	        sb.append(getEventLabel())

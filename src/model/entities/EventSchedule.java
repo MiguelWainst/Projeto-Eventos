@@ -1,5 +1,9 @@
 package model.entities;
 
+import application.Program;
+import model.entities.enums.EventType;
+import model.services.EventService;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +37,18 @@ public class EventSchedule {
 	    for (Event x : events) {
 	        sb.append("EVENT NAME\n");
 	        sb.append(x.getName()).append("\n");
+
+			/*
+			Informa o tipo de evento no recibo.
+			Cadeia de if e else pra cada caso de evento.
+			 */
+			sb.append("Event type: " ).append(EventService.getEventType());
+			if(EventService.getEventType() == "THEATER")
+				sb.append(" | Theater type: ").append(x.getEventLabel()).append("\n");
+			else if(EventService.getEventType() == "EXHIBITION")
+				sb.append(" | Exhibition type: ").append(x.getEventLabel()).append("\n");
+			else
+				sb.append("\n");
 
 	        sb.append("DATES: ");
 	        sb.append("Today's day: ").append(LocalDate.now());
