@@ -1,4 +1,4 @@
-package model.entities.enums;
+package main.model.entities.enums;
 
 public enum EventType {
 	THEATER, 

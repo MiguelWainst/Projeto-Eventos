@@ -1,8 +1,8 @@
-package model.entities;
+package main.model.entities;
 
-import model.entities.enums.TheaterType;
-import model.entities.enums.TicketType;
-import model.interfaces.IPriceService;
+import main.model.entities.enums.TheaterType;
+import main.model.entities.enums.TicketType;
+import main.model.interfaces.IPriceService;
 
 import java.time.LocalDate;
 

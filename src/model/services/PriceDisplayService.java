@@ -1,8 +1,8 @@
-package model.services;
+package main.model.services;
 
-import model.entities.enums.ExhibitionType;
-import model.entities.enums.TheaterType;
-import model.interfaces.IPriceDisplayService;
+import main.model.entities.enums.ExhibitionType;
+import main.model.entities.enums.TheaterType;
+import main.model.interfaces.IPriceDisplayService;
 
 public class PriceDisplayService implements IPriceDisplayService {
 

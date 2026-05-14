@@ -1,8 +1,8 @@
-package model.interfaces;
+package main.model.interfaces;
 
-import model.entities.enums.ExhibitionType;
-import model.entities.enums.TheaterType;
-import model.entities.enums.TicketType;
+import main.model.entities.enums.ExhibitionType;
+import main.model.entities.enums.TheaterType;
+import main.model.entities.enums.TicketType;
 
 public interface IPriceService {
     Double calculateTheaterPrice(TicketType ticketType, TheaterType theaterType, Integer numberOfTickets);
